@@ -7,12 +7,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:auto_route/router_utils.dart';
-import 'package:zy_finance/src/pages/splashscreen/splashscreen.dart';
+import 'package:zy_finance/src/pages/splashscreen.dart';
 import 'package:zy_finance/src/pages/home/home_page.dart';
+import 'package:zy_finance/src/pages/login_page.dart';
+import 'package:zy_finance/src/pages/register_page.dart';
 
 class Router {
   static const splashScreen = '/';
   static const homePage = '/home-page';
+  static const loginPage = '/login-page';
+  static const registerPage = '/register-page';
   static GlobalKey<NavigatorState> get navigatorKey =>
       getNavigatorKey<Router>();
   static NavigatorState get navigator => navigatorKey.currentState;
@@ -28,6 +32,16 @@ class Router {
       case Router.homePage:
         return MaterialPageRoute(
           builder: (_) => HomePage(),
+          settings: settings,
+        );
+      case Router.loginPage:
+        return MaterialPageRoute(
+          builder: (_) => LoginPage(),
+          settings: settings,
+        );
+      case Router.registerPage:
+        return MaterialPageRoute(
+          builder: (_) => RegisterPage(),
           settings: settings,
         );
       default:
