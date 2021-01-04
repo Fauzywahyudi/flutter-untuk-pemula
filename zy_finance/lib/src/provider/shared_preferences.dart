@@ -1,23 +1,31 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zy_finance/src/model/user.dart';
 
 class DataShared {
   static const _isNew = 'isNew';
-  // static const _idUser = 'id_user';
-  // static const _nama = 'nama';
-  // static const _value = 'value';
+  static const _idUser = 'idUser';
+  static const _nama = 'nama';
+  static const _uang = 'uang';
   // static const _data = 'data';
   // static const _idPenjual = 'idPenjual';
   // static const _buyNow = 'buyNow';
 
   Future<bool> getIsNew() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final sharedPreferences = await SharedPreferences.getInstance();
     final isNew = sharedPreferences.getBool(_isNew);
     return isNew;
   }
 
   Future setIsNew(bool value) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setBool(_isNew, value);
+  }
+
+  Future setUser(User user) async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setInt(_idUser, user.idUser);
+    sharedPreferences.setString(_nama, user.nama);
+    sharedPreferences.setInt(_uang, user.uang);
   }
 
   // Future<int> getId() async {

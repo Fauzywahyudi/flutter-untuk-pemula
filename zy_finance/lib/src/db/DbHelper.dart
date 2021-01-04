@@ -6,6 +6,7 @@ import 'dart:io' as io;
 import 'dart:async';
 
 import 'package:zy_finance/src/db/tb_user.dart';
+import 'package:zy_finance/src/model/user.dart';
 
 class DBHelper {
   static final DBHelper _instance = new DBHelper.internal();
@@ -37,7 +38,23 @@ class DBHelper {
     print("DB Created");
   }
 
-  
+  Future<User> crateUser(User user) async {
+    final dbClient = await DBHelper().db;
+    user.idUser = await dbClient.insert(TableUser.tbName, user.toJson(),
+        nullColumnHack: TableUser.id);
+    return user;
+  }
+
+//   Future<Note> getNoteById(int id) async {
+//   final Database db = await database;
+//   List<Map<String, dynamic>> results = await db.query(
+//     _tableName,
+//     where: 'id = ?',
+//     whereArgs: [id],
+//   );
+
+//   return results.map((res) => Note.fromMap(res)).first;
+// }
 
   // Future<int> saveUser(Myfinance myfinance) async{
   //   var dbClient = await  db;

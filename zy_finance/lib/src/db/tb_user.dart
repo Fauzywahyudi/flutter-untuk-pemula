@@ -1,7 +1,3 @@
-import 'package:sqflite/sqflite.dart';
-import 'package:zy_finance/src/db/DbHelper.dart';
-import 'package:zy_finance/src/provider/user_provider.dart';
-
 class TableUser {
   static const tbName = 'user';
   static const id = 'id_user';
@@ -16,27 +12,32 @@ class TableUser {
   static const online = 'online';
   static const offline = 'offline';
 
-  static const createTable = "CREATE TABLE $tbName($id INTEGER PRIMARY KEY, "
-      "$nama TEXT, "
-      "$pass TEXT, "
-      "$uang INTEGER, "
-      "$hutang INTEGER,"
-      "$piutang INTEGER, "
-      "$status INTEGER)";
+  static const createTable =
+      "CREATE TABLE $tbName($id INTEGER PRIMARY KEY AUTOINCREMENT, "
+      "$nama TEXT NOT NULL, "
+      "$pass TEXT NOT NULL, "
+      "$uang INTEGER NOT NULL, "
+      "$hutang INTEGER NOT NULL, "
+      "$piutang INTEGER NOT NULL, "
+      "$status TEXT NOT NULL)";
 
-  Future<UserState> getUser() async {
-    final dbClient = await DBHelper().db;
-    final resultOnline = Sqflite.firstIntValue(await dbClient
-        .rawQuery("SELECT COUNT(*) FROM $tbName WHERE $status='$online'"));
-    final resultOffline = Sqflite.firstIntValue(await dbClient
-        .rawQuery("SELECT COUNT(*) FROM $tbName WHERE $status='$online'"));
+  // Future<UserState> getUser() async {
+  //   final dbClient = await DBHelper().db;
+  //   final resultOnline = Sqflite.firstIntValue(await dbClient
+  //       .rawQuery("SELECT COUNT(*) FROM $tbName WHERE $status='$online'"));
+  //   final resultOffline = Sqflite.firstIntValue(await dbClient
+  //       .rawQuery("SELECT COUNT(*) FROM $tbName WHERE $status='$online'"));
 
-    if (resultOnline == 1) {
-      return UserState.Online;
-    } else if (resultOffline == 1) {
-      return UserState.Offline;
-    } else {
-      return UserState.NoData;
-    }
-  }
+  //   if (resultOnline == 1)
+  //     return UserState.Online;
+  //   else if (resultOffline == 1)
+  //     return UserState.Offline;
+  //   else
+  //     return UserState.NoData;
+  // }
+
+  // Future<int> crateUser(User user) async {
+  //   final dbClient = await DBHelper().db;
+  //   return await dbClient.insert(tbName, user.toMap());
+  // }
 }

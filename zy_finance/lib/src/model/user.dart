@@ -15,22 +15,22 @@ class User {
     this.status,
   });
 
-  String idUser;
+  int idUser;
   String nama;
   String pass;
-  String uang;
-  String hutang;
-  String piutang;
+  int uang;
+  int hutang;
+  int piutang;
   String status;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-        idUser: json["id_user"],
+        idUser: int.parse(json["id_user"]),
         nama: json["nama"],
         pass: json["pass"],
-        uang: json["uang"],
-        hutang: json["hutang"],
-        piutang: json["piutang"],
-        status: json["status"],
+        uang: int.parse(json["uang"]),
+        hutang: json["hutang"] == null ? 0 : int.parse(json["hutang"]),
+        piutang: json["piutang"] == null ? 0 : int.parse(json["piutang"]),
+        status: json["status"] == null ? 'online' : json["status"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -38,8 +38,14 @@ class User {
         "nama": nama,
         "pass": pass,
         "uang": uang,
-        "hutang": hutang,
-        "piutang": piutang,
-        "status": status,
+        "hutang": hutang == null ? 0 : hutang,
+        "piutang": piutang == null ? 0 : piutang,
+        "status": status == null ? 'online' : status,
       };
+}
+
+class ResultUser {
+  int resultState;
+  User user;
+  ResultUser({this.resultState, this.user});
 }
