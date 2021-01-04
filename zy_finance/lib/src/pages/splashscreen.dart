@@ -24,10 +24,14 @@ class _SplashScreenState extends State<SplashScreen> {
   void cekUserState() async {
     final dataShared = DataShared();
     final isNew = await dataShared.getIsNew();
-    if (isNew == null || !isNew) {
+    if (isNew == null || isNew) {
       Router.navigator.pushReplacementNamed(Router.registerPage);
     } else {
-      Router.navigator.pushReplacementNamed(Router.homePage);
+      final user = await dataShared.getIdUser();
+      if (user != null || user != 0)
+        Router.navigator.pushReplacementNamed(Router.homePage);
+      else
+        Router.navigator.pushReplacementNamed(Router.loginPage);
     }
   }
 

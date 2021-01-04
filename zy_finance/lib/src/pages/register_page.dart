@@ -113,11 +113,13 @@ class _RegisterPageState extends State<RegisterPage> with UserValidation {
               MaterialButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16)),
-                onPressed: onRegister,
-                child: Text(
-                  'Register',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
+                onPressed: _isLoading ? null : onRegister,
+                child: _isLoading
+                    ? CircularProgressIndicator()
+                    : Text(
+                        'Register',
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
                 color: Colors.red,
                 height: 50,
                 minWidth: MediaQuery.of(context).size.width - 40,
@@ -139,6 +141,7 @@ class _RegisterPageState extends State<RegisterPage> with UserValidation {
       if (result != null) {
         final dataShared = DataShared();
         dataShared.setUser(user);
+        dataShared.setIsNew(false);
         Router.navigator.pushReplacementNamed(Router.homePage);
       } else {
         print('gagal');

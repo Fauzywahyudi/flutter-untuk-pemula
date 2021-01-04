@@ -16,6 +16,12 @@ class DataShared {
     return isNew;
   }
 
+  Future<int> getIdUser() async {
+    final sharedPreferences = await SharedPreferences.getInstance();
+    final idUser = sharedPreferences.getInt(_idUser);
+    return idUser;
+  }
+
   Future setIsNew(bool value) async {
     final sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setBool(_isNew, value);
