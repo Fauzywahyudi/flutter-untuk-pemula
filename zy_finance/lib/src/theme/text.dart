@@ -25,3 +25,14 @@ InputDecoration inputDecoration(String hint) => InputDecoration(
         fontWeight: FontWeight.bold,
       ),
     );
+
+Icon iconSpend = Icon(
+  Icons.keyboard_arrow_up,
+  size: 35,
+  color: Colors.red,
+);
+Icon iconIncome = Icon(
+  Icons.keyboard_arrow_down,
+  size: 35,
+  color: Colors.green,
+);

@@ -53,10 +53,10 @@ class DBHelper {
     final dbClient = await db;
     final idUser = await dataShared.getId();
     List<Map<String, dynamic>> results = await dbClient.query(
-      TableTransaksi.tbName,
-      where: '${TableUser.id} = ?',
-      whereArgs: [idUser],
-    );
+        TableTransaksi.tbName,
+        where: '${TableUser.id} = ?',
+        whereArgs: [idUser],
+        orderBy: '${TableTransaksi.id} DESC');
 
     return results.map((res) => Transaksi.fromMap(res)).toList();
   }
@@ -64,9 +64,15 @@ class DBHelper {
   Future<Transaksi> createTransaction(Transaksi transaksi) async {
     final dbClient = await db;
     final idUser = await dataShared.getId();
+    final user = await getUserById();
+    if (transaksi.tipe == 'Income')
+      user.uang += transaksi.jumlah;
+    else
+      user.uang -= transaksi.jumlah;
     transaksi.idUser = idUser;
     transaksi.idTransaksi =
         await dbClient.insert(TableTransaksi.tbName, transaksi.toJson());
+    await updateUang(user);
     return transaksi;
   }
 
@@ -79,6 +85,17 @@ class DBHelper {
       whereArgs: [idUser],
     );
     return results.map((res) => User.fromJson(res)).first;
+  }
+
+  Future updateUang(User user) async {
+    final dbClient = await db;
+    final idUser = await dataShared.getId();
+    await dbClient.update(
+      TableUser.tbName,
+      user.toJson(),
+      where: '${TableUser.id} = ?',
+      whereArgs: [idUser],
+    );
   }
 
   // Future<User> getAllUser() async {
