@@ -1,12 +1,15 @@
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:zy_finance/src/db/tb_transaksi.dart';
 import 'dart:io' as io;
 import 'dart:async';
 
 import 'package:zy_finance/src/db/tb_user.dart';
+import 'package:zy_finance/src/model/transaksi.dart';
 import 'package:zy_finance/src/model/user.dart';
+import 'package:zy_finance/src/provider/shared_preferences.dart';
 
 class DBHelper {
   static final DBHelper _instance = new DBHelper.internal();
@@ -18,6 +21,7 @@ class DBHelper {
 
   // database name
   static const nmDb = "mydb";
+  final dataShared = DataShared();
 
   Future<Database> get db async {
     if (_db != null) return _db;
@@ -39,22 +43,57 @@ class DBHelper {
   }
 
   Future<User> crateUser(User user) async {
-    final dbClient = await DBHelper().db;
+    final dbClient = await db;
     user.idUser = await dbClient.insert(TableUser.tbName, user.toJson(),
         nullColumnHack: TableUser.id);
     return user;
   }
 
-//   Future<Note> getNoteById(int id) async {
-//   final Database db = await database;
-//   List<Map<String, dynamic>> results = await db.query(
-//     _tableName,
-//     where: 'id = ?',
-//     whereArgs: [id],
-//   );
+  Future<List<Transaksi>> getAllTrasaction() async {
+    final dbClient = await db;
+    final idUser = await dataShared.getId();
+    List<Map<String, dynamic>> results = await dbClient.query(
+      TableTransaksi.tbName,
+      where: '${TableUser.id} = ?',
+      whereArgs: [idUser],
+    );
 
-//   return results.map((res) => Note.fromMap(res)).first;
-// }
+    return results.map((res) => Transaksi.fromMap(res)).toList();
+  }
+
+  Future<Transaksi> createTransaction(Transaksi transaksi) async {
+    final dbClient = await db;
+    final idUser = await dataShared.getId();
+    transaksi.idUser = idUser;
+    transaksi.idTransaksi =
+        await dbClient.insert(TableTransaksi.tbName, transaksi.toJson());
+    return transaksi;
+  }
+
+  Future<User> getUserById() async {
+    final dbClient = await db;
+    final idUser = await dataShared.getId();
+    List<Map<String, dynamic>> results = await dbClient.query(
+      TableUser.tbName,
+      where: '${TableUser.id} = ?',
+      whereArgs: [idUser],
+    );
+    return results.map((res) => User.fromJson(res)).first;
+  }
+
+  // Future<User> getAllUser() async {
+  //   final dbClient = await db;
+  //   final idUser = await dataShared.getId();
+  //   List<Map<String, dynamic>> results = await dbClient.query(
+  //     TableUser.tbName,
+  //   );
+  //   for (var item in results) {
+  //     User user = User.fromJson(item);
+  //     print(user.toJson());
+  //   }
+
+  //   return results.map((res) => User.fromJson(res)).first;
+  // }
 
   // Future<int> saveUser(Myfinance myfinance) async{
   //   var dbClient = await  db;

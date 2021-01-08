@@ -24,13 +24,13 @@ class User {
   String status;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-        idUser: int.parse(json["id_user"]),
+        idUser: json["id_user"],
         nama: json["nama"],
         pass: json["pass"],
-        uang: int.parse(json["uang"]),
-        hutang: json["hutang"] == null ? 0 : int.parse(json["hutang"]),
-        piutang: json["piutang"] == null ? 0 : int.parse(json["piutang"]),
-        status: json["status"] == null ? 'online' : json["status"],
+        uang: json["uang"],
+        hutang: json["hutang"],
+        piutang: json["piutang"],
+        status: json["status"],
       );
 
   Map<String, dynamic> toJson() => {

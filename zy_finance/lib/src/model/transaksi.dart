@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 List<Transaksi> transaksiFromJson(String str) =>
-    List<Transaksi>.from(json.decode(str).map((x) => Transaksi.fromJson(x)));
+    List<Transaksi>.from(json.decode(str).map((x) => Transaksi.fromMap(x)));
 
 String transaksiToJson(List<Transaksi> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
@@ -17,15 +17,15 @@ class Transaksi {
     this.tanggal,
   });
 
-  String idTransaksi;
-  String idUser;
+  int idTransaksi;
+  int idUser;
   String namaTransaksi;
-  String jumlah;
+  int jumlah;
   String tipe;
   String keterangan;
   String tanggal;
 
-  factory Transaksi.fromJson(Map<String, dynamic> json) => Transaksi(
+  factory Transaksi.fromMap(Map<String, dynamic> json) => Transaksi(
         idTransaksi: json["id_transaksi"],
         idUser: json["id_user"],
         namaTransaksi: json["nama_transaksi"],

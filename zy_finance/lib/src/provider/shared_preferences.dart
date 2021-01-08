@@ -34,11 +34,10 @@ class DataShared {
     sharedPreferences.setInt(_uang, user.uang);
   }
 
-  // Future<int> getId() async {
-  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  //   int idUser = sharedPreferences.getInt(_id);
-  //   return idUser;
-  // }
+  Future<int> getId() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences.getInt(_idUser);
+  }
 
   // Future<int> getValue() async {
   //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();

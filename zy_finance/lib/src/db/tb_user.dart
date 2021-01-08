@@ -35,9 +35,4 @@ class TableUser {
   //   else
   //     return UserState.NoData;
   // }
-
-  // Future<int> crateUser(User user) async {
-  //   final dbClient = await DBHelper().db;
-  //   return await dbClient.insert(tbName, user.toMap());
-  // }
 }
