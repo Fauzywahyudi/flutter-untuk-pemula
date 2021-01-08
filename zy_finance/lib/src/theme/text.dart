@@ -36,3 +36,9 @@ Icon iconIncome = Icon(
   size: 35,
   color: Colors.green,
 );
+
+TextStyle moneyStyle = TextStyle(
+  color: Colors.blueGrey,
+  fontSize: 25,
+  fontWeight: FontWeight.bold,
+);

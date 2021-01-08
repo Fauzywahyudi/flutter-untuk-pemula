@@ -9,22 +9,14 @@ import 'package:zy_finance/src/theme/box_decoration.dart';
 import 'package:zy_finance/src/theme/text.dart';
 import 'package:zy_finance/src/util/my_date_format.dart';
 import 'package:zy_finance/src/widget/dialog.dart';
+import 'package:countup/countup.dart';
 
-class HomeTab extends StatefulWidget {
-  @override
-  _HomeTabState createState() => _HomeTabState();
-}
-
-class _HomeTabState extends State<HomeTab> {
+class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<TransaksiProvider>(
-          lazy: true,
-          create: (_) => TransaksiProvider(),
-        ),
-      ],
+    return ChangeNotifierProvider<TransaksiProvider>(
+      create: (_) => TransaksiProvider(),
+      lazy: true,
       child: Scaffold(
         floatingActionButton: Consumer<TransaksiProvider>(
           builder: (context, state, _) {
@@ -33,7 +25,8 @@ class _HomeTabState extends State<HomeTab> {
                 barrierDismissible: false,
                 context: context,
                 child: DialogTransaksi(title: 'Add Transaction'),
-              ).then((value) => state.refreshData()),
+              ).then((value) =>
+                  value == null ? print('no change') : state.refreshData()),
               child: Icon(Icons.add),
             );
           },
@@ -51,6 +44,8 @@ class _HomeTabState extends State<HomeTab> {
                     } else if (state.state == ResultState.HasData) {
                       return HomeDecor(
                         user: state.user,
+                        begin: state.beginMoney,
+                        end: state.endMoney,
                       );
                     } else if (state.state == ResultState.NoData) {
                       return Center(child: Text(state.message));
@@ -134,8 +129,10 @@ class ItemData extends StatelessWidget {
 
 class HomeDecor extends StatelessWidget {
   final User user;
+  final double begin;
+  final double end;
 
-  HomeDecor({@required this.user});
+  HomeDecor({@required this.user, this.begin, this.end});
 
   final f = NumberFormat.currency(name: 'Rp ', decimalDigits: 0);
 
@@ -175,13 +172,18 @@ class HomeDecor extends StatelessWidget {
                     children: [
                       SizedBox(width: 10),
                       Text(
-                        user == null ? '' : f.format(user.uang),
-                        style: TextStyle(
-                          color: Colors.blueGrey,
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        'Rp. ',
+                        style: moneyStyle,
                       ),
+                      user == null
+                          ? Text('0', style: moneyStyle)
+                          : Countup(
+                              begin: begin,
+                              end: end,
+                              duration: Duration(milliseconds: 500),
+                              separator: ',',
+                              style: moneyStyle,
+                            ),
                     ],
                   ),
                 ),
@@ -232,17 +234,17 @@ class DetailTransaksi extends StatelessWidget {
             ),
             ListTile(
               title: Text(transaksi.namaTransaksi),
-              subtitle: Text('Judul'),
+              subtitle: Text('Title'),
             ),
             ListTile(
               title: Text(
                   transaksi.keterangan == null ? '-' : transaksi.keterangan),
-              subtitle: Text('Keterangan'),
+              subtitle: Text('Description'),
             ),
             ListTile(
               title: Text(
                   myFormat.myFullDateTime(DateTime.parse(transaksi.tanggal))),
-              subtitle: Text('Tanggal Transaksi'),
+              subtitle: Text('Transaction Date'),
             ),
           ],
         ),

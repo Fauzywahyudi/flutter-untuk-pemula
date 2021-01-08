@@ -54,7 +54,7 @@ class _DialogTransaksiState extends State<DialogTransaksi>
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp('[0-9]')),
                 ],
-                decoration: inputDecoration('Jumlah'),
+                decoration: inputDecoration('Total'),
                 textAlign: TextAlign.end,
                 validator: validateMoney,
                 onSaved: (value) {
@@ -66,7 +66,7 @@ class _DialogTransaksiState extends State<DialogTransaksi>
               SizedBox(height: 10),
               TextFormField(
                 controller: tecJudul,
-                decoration: inputDecoration('Judul'),
+                decoration: inputDecoration('Title'),
                 validator: validateName,
                 onSaved: (value) {
                   transaksi.namaTransaksi = value;
@@ -77,7 +77,7 @@ class _DialogTransaksiState extends State<DialogTransaksi>
                 controller: tecDeskripsi,
                 minLines: 1,
                 maxLines: 3,
-                decoration: inputDecoration('Deskripsi'),
+                decoration: inputDecoration('Description'),
               ),
             ],
           ),

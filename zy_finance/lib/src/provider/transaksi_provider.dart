@@ -8,6 +8,7 @@ enum HomeState { Loading, NoData, HasData, Error }
 
 class TransaksiProvider extends ChangeNotifier {
   TransaksiProvider() {
+    print('create');
     fetchData();
     fetchDataStatus();
   }
@@ -18,12 +19,17 @@ class TransaksiProvider extends ChangeNotifier {
   HomeState _homeState;
   List<Transaksi> _dataResult;
   User _user;
+  double _beginMoney = 0;
+  double _endMoney = 0;
 
   String get message => _message;
   ResultState get state => _state;
   HomeState get homeState => _homeState;
   List<Transaksi> get result => _dataResult;
   User get user => _user;
+  double get beginMoney => _beginMoney;
+  double get endMoney => _endMoney;
+
   void refreshData() {
     fetchData();
     fetchDataStatus();
@@ -58,14 +64,19 @@ class TransaksiProvider extends ChangeNotifier {
       if (data == null) {
         _homeState = HomeState.NoData;
         notifyListeners();
+        print('tak dapat');
         return _message = 'Empty Data';
       } else {
         _homeState = HomeState.HasData;
         notifyListeners();
+        _beginMoney = _endMoney;
+        _endMoney = double.parse(data.uang.toString());
+        print('dapat');
         return _user = data;
       }
     } catch (e) {
       _homeState = HomeState.Error;
+      print(e);
       notifyListeners();
       return _message = 'Error --> $e';
     }

@@ -1,6 +1,5 @@
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:zy_finance/src/db/tb_transaksi.dart';
 import 'dart:io' as io;

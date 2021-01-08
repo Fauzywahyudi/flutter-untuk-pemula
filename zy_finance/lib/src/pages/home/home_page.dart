@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:zy_finance/src/pages/home/tab_debit.dart';
 import 'package:zy_finance/src/pages/home/tab_home.dart';
+import 'package:zy_finance/src/pages/home/tab_profile.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,19 +12,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-  List<Widget> _widgetOptions = <Widget>[
+  List<Widget> _widgetOptions = [
     HomeTab(),
-    Text(
-      'Index 1: Likes',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: Search',
-      style: optionStyle,
-    ),
+    DebitTab(),
+    ProfileTab(),
   ];
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
 
   @override
   Widget build(BuildContext context) {
