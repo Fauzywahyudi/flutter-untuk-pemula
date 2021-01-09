@@ -52,6 +52,7 @@ class _DialogTransaksiState extends State<DialogTransaksi>
               TextFormField(
                 controller: tecJumlah,
                 keyboardType: TextInputType.number,
+                autofocus: true,
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp('[0-9]')),
                 ],
@@ -79,6 +80,9 @@ class _DialogTransaksiState extends State<DialogTransaksi>
                 minLines: 1,
                 maxLines: 3,
                 decoration: inputDecoration('Description'),
+                onSaved: (value) {
+                  transaksi.keterangan = value;
+                },
               ),
             ],
           ),
@@ -197,6 +201,7 @@ class _DialogDebitState extends State<DialogDebit> with TransaksiValidation {
               TextFormField(
                 controller: tecJumlah,
                 keyboardType: TextInputType.number,
+                autofocus: true,
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp('[0-9]')),
                 ],
