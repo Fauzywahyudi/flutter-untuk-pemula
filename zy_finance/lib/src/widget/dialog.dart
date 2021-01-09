@@ -29,6 +29,14 @@ class _DialogTransaksiState extends State<DialogTransaksi>
   bool isLoading = false;
 
   @override
+  void dispose() {
+    tecJumlah.dispose();
+    tecJudul.dispose();
+    tecDeskripsi.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AlertDialog(
       titlePadding: EdgeInsets.all(0),
@@ -176,6 +184,14 @@ class _DialogDebitState extends State<DialogDebit> with TransaksiValidation {
   var tecJudul = TextEditingController();
   var tecDeskripsi = TextEditingController();
   bool isLoading = false;
+
+  @override
+  void dispose() {
+    tecJumlah.dispose();
+    tecJudul.dispose();
+    tecDeskripsi.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

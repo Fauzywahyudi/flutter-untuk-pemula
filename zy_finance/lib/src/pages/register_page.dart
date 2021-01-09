@@ -31,6 +31,17 @@ class _RegisterPageState extends State<RegisterPage> with UserValidation {
   bool _isLoading = false;
 
   @override
+  void dispose() {
+    _tecName.dispose();
+    _tecPassword.dispose();
+    _tecMoney.dispose();
+    _focName.dispose();
+    _focPassword.dispose();
+    _focMoney.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey,
