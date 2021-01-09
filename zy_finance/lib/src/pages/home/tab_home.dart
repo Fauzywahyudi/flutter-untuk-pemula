@@ -21,10 +21,9 @@ class HomeTab extends StatelessWidget {
         floatingActionButton: Consumer<TransaksiProvider>(
           builder: (context, state, _) {
             return FloatingActionButton(
-              onPressed: () => showDialog(
-                barrierDismissible: false,
-                context: context,
-                child: DialogTransaksi(title: 'Add Transaction'),
+              onPressed: () => myAnimationDialog(
+                context,
+                DialogTransaksi(title: 'Add Transaction'),
               ).then((value) =>
                   value == null ? print('no change') : state.refreshData()),
               child: Icon(Icons.add),
@@ -39,17 +38,17 @@ class HomeTab extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 child: Consumer<TransaksiProvider>(
                   builder: (context, state, _) {
-                    if (state.state == ResultState.Loading) {
+                    if (state.homeState == HomeState.Loading) {
                       return Center(child: CircularProgressIndicator());
-                    } else if (state.state == ResultState.HasData) {
+                    } else if (state.homeState == HomeState.HasData) {
                       return HomeDecor(
                         user: state.user,
                         begin: state.beginMoney,
                         end: state.endMoney,
                       );
-                    } else if (state.state == ResultState.NoData) {
+                    } else if (state.homeState == HomeState.NoData) {
                       return Center(child: Text(state.message));
-                    } else if (state.state == ResultState.Error) {
+                    } else if (state.homeState == HomeState.Error) {
                       return Center(child: Text(state.message));
                     } else {
                       return Center(child: Text(''));
@@ -68,7 +67,8 @@ class HomeTab extends StatelessWidget {
                     } else if (state.state == ResultState.HasData) {
                       return ListView.builder(
                         shrinkWrap: true,
-                        padding: EdgeInsets.only(bottom: 50),
+                        padding:
+                            EdgeInsets.only(bottom: 50, left: 10, right: 10),
                         physics: BouncingScrollPhysics(),
                         itemCount: state.result.length,
                         itemBuilder: (context, index) {
@@ -76,9 +76,13 @@ class HomeTab extends StatelessWidget {
                         },
                       );
                     } else if (state.state == ResultState.NoData) {
-                      return Center(child: Text(state.message));
+                      return Center(
+                        child: Text(state.message, style: emptyStyle),
+                      );
                     } else if (state.state == ResultState.Error) {
-                      return Center(child: Text(state.message));
+                      return Center(
+                        child: Text(state.message, style: emptyStyle),
+                      );
                     } else {
                       return Center(child: Text(''));
                     }
@@ -102,26 +106,33 @@ class ItemData extends StatelessWidget {
   final myFormat = MyDateFormat();
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: transaksi.tipe == 'Income' ? iconIncome : iconSpend,
-      subtitle: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(transaksi.namaTransaksi),
-          Text(myFormat.myFullDateTime(DateTime.parse(transaksi.tanggal))),
-        ],
-      ),
-      title: Text(
-        f.format(transaksi.jumlah),
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: transaksi.tipe == 'Income' ? Colors.green : Colors.red,
+    DateTime date = DateTime.parse(transaksi.tanggal);
+    DateTime now = DateTime.now();
+    Duration difference = now.difference(date);
+    return Card(
+      child: ListTile(
+        leading: transaksi.tipe == 'Income' ? iconIncome : iconSpend,
+        subtitle: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(transaksi.namaTransaksi),
+            Text(myFormat.myDifferenceDate(difference)
+                // myFormat.myFullDateTime(DateTime.parse(transaksi.tanggal))
+                ),
+          ],
         ),
-      ),
-      onTap: () => showDialog(
-        context: context,
-        barrierDismissible: false,
-        child: DetailTransaksi(transaksi: transaksi),
+        title: Text(
+          f.format(transaksi.jumlah),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: transaksi.tipe == 'Income' ? Colors.green : Colors.red,
+          ),
+        ),
+        onTap: () => showDialog(
+          context: context,
+          barrierDismissible: false,
+          child: DetailTransaksi(transaksi: transaksi),
+        ),
       ),
     );
   }
@@ -139,13 +150,7 @@ class HomeDecor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.blueGrey,
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(50),
-          bottomRight: Radius.circular(50),
-        ),
-      ),
+      decoration: flexSpaceDecor,
       padding: EdgeInsets.symmetric(horizontal: 30, vertical: 40),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -153,11 +158,7 @@ class HomeDecor extends StatelessWidget {
         children: [
           Text(
             user == null ? '' : user.nama,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-            ),
+            style: titleAppStyle,
           ),
           SizedBox(height: 20),
           Card(

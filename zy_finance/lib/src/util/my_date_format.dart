@@ -89,4 +89,22 @@ class MyDateFormat {
   String myFullDateTime(DateTime date) {
     return '${date.hour}:${date.minute < 10 ? '0' + date.minute.toString() : date.minute} - ${date.day} ${monthName(date)} ${date.year}';
   }
+
+  String myDifferenceDate(Duration difference) {
+    if (difference.inMinutes <= 1) return 'Just Now';
+    if (difference.inMinutes < 60) return '${difference.inMinutes} minutes ago';
+    if (difference.inHours <= 1) return '${difference.inHours} hour ago';
+    if (difference.inHours < 24) return '${difference.inHours} hours ago';
+    if (difference.inDays <= 1) return '${difference.inDays} day ago';
+    if (difference.inDays < 30) return '${difference.inDays} days ago';
+    if (difference.inDays <= 31) return '1 month ago';
+    if (difference.inDays > 31) {
+      int month = 0;
+      for (int i = 1; i < difference.inDays; i + 30) {
+        month++;
+      }
+      return '$month months ago';
+    }
+    return '-';
+  }
 }

@@ -42,3 +42,15 @@ TextStyle moneyStyle = TextStyle(
   fontSize: 25,
   fontWeight: FontWeight.bold,
 );
+
+TextStyle emptyStyle = TextStyle(
+  fontSize: 30,
+  fontWeight: FontWeight.bold,
+  color: Colors.grey,
+);
+
+TextStyle titleAppStyle = TextStyle(
+  color: Colors.white,
+  fontSize: 25,
+  fontWeight: FontWeight.bold,
+);

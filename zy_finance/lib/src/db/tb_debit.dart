@@ -1,18 +1,20 @@
-class TableTransaksi {
-  static const tbName = 'transaksi';
-  static const id = 'id_transaksi';
+class TableDebit {
+  static const tbName = 'debit';
+  static const id = 'id_debit';
   static const idUser = 'id_user';
-  static const nama = 'nama_transaksi';
+  static const nama = 'nama';
   static const jumlah = 'jumlah';
   static const tipe = 'tipe';
   static const keterangan = 'keterangan';
-  static const tanggal = 'tanggal';
+  static const tanggalPinjam = 'tanggal_pinjam';
+  static const tanggalKembali = 'tanggal_kembali';
 
   static const createTable = "CREATE TABLE $tbName($id INTEGER PRIMARY KEY, "
       "$idUser INTEGER, "
       "$nama TEXT, "
       "$jumlah INTEGER, "
-      "$tipe TEXT,"
+      "$tipe TEXT, "
       "$keterangan TEXT, "
-      "$tanggal TEXT)";
+      "$tanggalPinjam TEXT, "
+      "$tanggalKembali TEXT)";
 }

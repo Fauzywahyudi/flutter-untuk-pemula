@@ -1,0 +1,12 @@
+[
+    {
+        "id_debit": "2",
+        "id_user": "2",
+        "nama": "Fauzy",
+        "jumlah": "10000",
+        "tipe": "10000",
+        "keterangan": "10000",
+        "tanggal_pinjam": "Login",
+        "tanggal_kembali": "Login"
+    }
+]

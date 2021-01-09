@@ -8,7 +8,6 @@ enum HomeState { Loading, NoData, HasData, Error }
 
 class TransaksiProvider extends ChangeNotifier {
   TransaksiProvider() {
-    print('create');
     fetchData();
     fetchDataStatus();
   }

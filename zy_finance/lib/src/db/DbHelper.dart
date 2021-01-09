@@ -1,11 +1,13 @@
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:zy_finance/src/db/tb_debit.dart';
 import 'package:zy_finance/src/db/tb_transaksi.dart';
 import 'dart:io' as io;
 import 'dart:async';
 
 import 'package:zy_finance/src/db/tb_user.dart';
+import 'package:zy_finance/src/model/debit.dart';
 import 'package:zy_finance/src/model/transaksi.dart';
 import 'package:zy_finance/src/model/user.dart';
 import 'package:zy_finance/src/provider/shared_preferences.dart';
@@ -38,6 +40,7 @@ class DBHelper {
   void _onCreate(Database db, int version) async {
     await db.execute(TableUser.createTable);
     await db.execute(TableTransaksi.createTable);
+    await db.execute(TableDebit.createTable);
     print("DB Created");
   }
 
@@ -95,6 +98,18 @@ class DBHelper {
       where: '${TableUser.id} = ?',
       whereArgs: [idUser],
     );
+  }
+
+  //debt
+  Future<List<Debt>> getAllDebt() async {
+    final dbClient = await db;
+    final idUser = await dataShared.getId();
+    List<Map<String, dynamic>> results = await dbClient.query(TableDebit.tbName,
+        where: '${TableUser.id} = ?',
+        whereArgs: [idUser],
+        orderBy: '${TableDebit.id} DESC');
+
+    return results.map((res) => Debt.fromJson(res)).toList();
   }
 
   // Future<User> getAllUser() async {

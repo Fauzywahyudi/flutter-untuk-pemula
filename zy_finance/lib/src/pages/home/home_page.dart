@@ -42,8 +42,8 @@ class _HomePageState extends State<HomePage> {
                     text: 'Home',
                   ),
                   GButton(
-                    icon: LineIcons.heart_o,
-                    text: 'Likes',
+                    icon: LineIcons.credit_card,
+                    text: 'Debt',
                   ),
                   GButton(
                     icon: LineIcons.user,
