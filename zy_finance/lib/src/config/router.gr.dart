@@ -12,34 +12,34 @@ import 'package:zy_finance/src/pages/home/home_page.dart';
 import 'package:zy_finance/src/pages/login_page.dart';
 import 'package:zy_finance/src/pages/register_page.dart';
 
-class Router {
+class Routes {
   static const splashScreen = '/';
   static const homePage = '/home-page';
   static const loginPage = '/login-page';
   static const registerPage = '/register-page';
   static GlobalKey<NavigatorState> get navigatorKey =>
-      getNavigatorKey<Router>();
+      getNavigatorKey<Routes>();
   static NavigatorState get navigator => navigatorKey.currentState;
 
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     final args = settings.arguments;
     switch (settings.name) {
-      case Router.splashScreen:
+      case Routes.splashScreen:
         return MaterialPageRoute(
           builder: (_) => SplashScreen(),
           settings: settings,
         );
-      case Router.homePage:
+      case Routes.homePage:
         return MaterialPageRoute(
           builder: (_) => HomePage(),
           settings: settings,
         );
-      case Router.loginPage:
+      case Routes.loginPage:
         return MaterialPageRoute(
           builder: (_) => LoginPage(),
           settings: settings,
         );
-      case Router.registerPage:
+      case Routes.registerPage:
         return MaterialPageRoute(
           builder: (_) => RegisterPage(),
           settings: settings,

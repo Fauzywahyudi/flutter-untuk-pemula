@@ -153,7 +153,7 @@ class _RegisterPageState extends State<RegisterPage> with UserValidation {
         final dataShared = DataShared();
         dataShared.setUser(user);
         dataShared.setIsNew(false);
-        Router.navigator.pushReplacementNamed(Router.homePage);
+        Routes.navigator.pushReplacementNamed(Routes.homePage);
       } else {
         print('gagal');
       }

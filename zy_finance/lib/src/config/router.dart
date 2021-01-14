@@ -5,7 +5,7 @@ import 'package:zy_finance/src/pages/register_page.dart';
 import 'package:zy_finance/src/pages/splashscreen.dart';
 
 @autoRouter
-class $Router {
+class $Routes {
   @initial
   SplashScreen splashScreen;
   HomePage homePage;

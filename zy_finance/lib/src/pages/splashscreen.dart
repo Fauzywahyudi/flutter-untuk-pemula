@@ -25,13 +25,13 @@ class _SplashScreenState extends State<SplashScreen> {
     final dataShared = DataShared();
     final isNew = await dataShared.getIsNew();
     if (isNew == null || isNew) {
-      Router.navigator.pushReplacementNamed(Router.registerPage);
+      Routes.navigator.pushReplacementNamed(Routes.registerPage);
     } else {
       final user = await dataShared.getIdUser();
       if (user != null || user != 0)
-        Router.navigator.pushReplacementNamed(Router.homePage);
+        Routes.navigator.pushReplacementNamed(Routes.homePage);
       else
-        Router.navigator.pushReplacementNamed(Router.loginPage);
+        Routes.navigator.pushReplacementNamed(Routes.loginPage);
     }
   }
 

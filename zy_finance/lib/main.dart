@@ -18,9 +18,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blueGrey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: Router.splashScreen,
-      onGenerateRoute: Router.onGenerateRoute,
-      navigatorKey: Router.navigatorKey,
+      initialRoute: Routes.splashScreen,
+      onGenerateRoute: Routes.onGenerateRoute,
+      navigatorKey: Routes.navigatorKey,
     );
   }
 }

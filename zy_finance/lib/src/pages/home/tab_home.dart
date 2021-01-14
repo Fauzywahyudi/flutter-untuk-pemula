@@ -253,7 +253,7 @@ class DetailTransaksi extends StatelessWidget {
       actions: [
         RaisedButton(
           color: Colors.blueGrey,
-          onPressed: () => Router.navigator.pop(),
+          onPressed: () => Routes.navigator.pop(),
           child: Text(
             'OK',
             style: textWhite,

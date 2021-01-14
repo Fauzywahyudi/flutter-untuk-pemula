@@ -98,7 +98,7 @@ class _DialogTransaksiState extends State<DialogTransaksi>
       ),
       actions: [
         OutlineButton(
-          onPressed: () => Router.navigator.pop(),
+          onPressed: () => Routes.navigator.pop(),
           child: Text('Cancel'),
         ),
         RaisedButton(
@@ -116,7 +116,7 @@ class _DialogTransaksiState extends State<DialogTransaksi>
                         transaksi.tipe = 'Spend';
                       await dbHelper.createTransaction(transaksi);
                       setLoading();
-                      Router.navigator.pop(true);
+                      Routes.navigator.pop(true);
                     } catch (e) {}
                   }
                 }
@@ -252,7 +252,7 @@ class _DialogDebitState extends State<DialogDebit> with TransaksiValidation {
       ),
       actions: [
         OutlineButton(
-          onPressed: () => Router.navigator.pop(),
+          onPressed: () => Routes.navigator.pop(),
           child: Text('Cancel'),
         ),
         RaisedButton(
@@ -270,7 +270,7 @@ class _DialogDebitState extends State<DialogDebit> with TransaksiValidation {
                         transaksi.tipe = 'Spend';
                       await dbHelper.createTransaction(transaksi);
                       setLoading();
-                      Router.navigator.pop(true);
+                      Routes.navigator.pop(true);
                     } catch (e) {}
                   }
                 }
